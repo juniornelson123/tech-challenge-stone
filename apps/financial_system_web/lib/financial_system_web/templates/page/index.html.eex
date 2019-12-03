@@ -1,0 +1,9 @@
+<section class="row">
+  <ul>
+    <%= for account <- @accounts do %>
+      <li><strong>Owner:</strong> <%= account.user.name %></li>
+      <li><strong>Balance:</strong> <%= value_currency(account.balance, account.currency) %> - <%= account.currency %></li>
+      <hr />
+    <% end %>
+  </ul>
+</section>

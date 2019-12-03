@@ -1,0 +1,14 @@
+<section class="row">
+  <ul>
+    <h1>Owner</h1>
+    <li><strong>Name:</strong> <%= @account.user.name %></li>
+    <li><strong>Email:</strong> <%= @account.user.email %></li>
+    <li><strong>Phone:</strong> <%= @account.user.phone %></li>
+    <hr />
+    <li><strong>Balance:</strong> <%= value_currency(@account.balance, @account.currency) %> - <%= @account.currency %></li>
+  </ul>
+</section>
+<section class="row">
+  <%= link "Edit", to: Routes.account_path(@conn, :edit, @account) %> | 
+  <%= link "Voltar", to: Routes.account_path(@conn, :index) %>
+</section>
