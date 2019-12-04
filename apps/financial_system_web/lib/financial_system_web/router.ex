@@ -17,7 +17,9 @@ defmodule FinancialSystemWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/accounts", AccountController
+    resources "/accounts", AccountController do
+      resources "/transfers", TransferController
+    end
   end
 
   # Other scopes may use custom stacks.

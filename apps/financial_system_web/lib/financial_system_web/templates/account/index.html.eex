@@ -4,6 +4,7 @@
     <%= for account <- @accounts do %>
       <li><strong>Owner:</strong> <%= link account.user.name, to: Routes.account_path(@conn, :show, account.id) %></li>
       <li><strong>Balance:</strong> <%= value_currency(account.balance, account.currency) %> - <%= account.currency %></li>
+      <li><%= link "Transfers", to: Routes.account_transfer_path(@conn, :index, account) %></li>
       <li><%= link "Edit", to: Routes.account_path(@conn, :edit, account) %></li>
       <li><%= link "Delete", to: Routes.account_path(@conn, :delete, account), method: :delete %></li>
       <hr />

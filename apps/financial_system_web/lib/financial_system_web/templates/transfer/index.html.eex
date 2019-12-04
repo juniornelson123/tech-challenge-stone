@@ -1,0 +1,11 @@
+<%= link "Back", to: Routes.account_path(@conn, :index) %>
+<%= link "New", to: Routes.account_transfer_path(@conn, :new, @account) %>
+<section class="row">
+  <ul>
+    <%= for transfer <- @transfers do %>
+      <li><strong>Account Send:</strong> <%= transfer.account.user.name %></li>
+      <li><strong>Value:</strong> <%= transfer.value %></li>
+      <hr />
+    <% end %>
+  </ul>
+</section>

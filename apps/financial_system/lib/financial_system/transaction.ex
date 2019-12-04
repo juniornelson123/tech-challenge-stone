@@ -3,8 +3,8 @@ defmodule FinancialSystem.Transaction do
   Transaction Context
   """
 
+  import Ecto.Query, only: [from: 2]
   alias FinancialSystem.Repo
-
   alias FinancialSystem.Transaction.User
 
   @doc """
@@ -277,6 +277,21 @@ defmodule FinancialSystem.Transaction do
   """
   def change_transfer(%Transfer{} = transfer) do
     Transfer.changeset(transfer, %{})
+  end
+
+  @doc """
+  Return list of transfers
+
+    ##Examples
+
+      iex> list_transfers(account_id)
+      [%Transfer{}, ...]
+
+  """
+  def list_transfers(account_id) do
+    query = from t in Transfer,
+            where: t.account_id == ^account_id
+    Repo.all(query)
   end
 
   @doc """

@@ -44,24 +44,26 @@ defmodule FinancialSystem do
   """
   def transfer(account_from_id, accounts) do
     value = accounts |> Enum.map(&(&1.value)) |> Enum.reduce(0, &(&1+&2))
-
     #Register transfer
-    {_, transfer} = register_transfer(account_from_id, value)
+    case register_transfer(account_from_id, value) do
+      {:ok, transfer} ->
+        case Repo.transaction(fn ->
+          accounts |> Enum.map(fn account ->
+            {:ok, item} = register_item(account.value, account.account_received_id, transfer.id)
 
-    case Repo.transaction(fn ->
-      accounts |> Enum.map(fn account ->
-        {:ok, item} = register_item(account.value, account.account_received_id, transfer.id)
+            transfer_account(account_from_id, item.account_received_id, item)
+          end)
 
-        transfer_account(account_from_id, item.account_received_id, item)
-      end)
-
-      "Successful transfer"
-    end) do
-      {:ok, message} ->
-        update_transfer(transfer, true, message)
-      {:error, message} ->
-        {_, transfer} = update_transfer(transfer, false, message)
-        {:error, transfer}
+          "Successful transfer"
+        end) do
+          {:ok, message} ->
+            update_transfer(transfer, true, message)
+          {:error, message} ->
+            {_, transfer} = update_transfer(transfer, false, message)
+            {:error, transfer}
+        end
+      {:error, _} ->
+        {:error, "Canceled transfer verify info"}
     end
   end
 
