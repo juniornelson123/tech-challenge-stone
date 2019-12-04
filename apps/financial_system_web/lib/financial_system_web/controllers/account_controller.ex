@@ -23,7 +23,6 @@ defmodule FinancialSystemWeb.AccountController do
         |> put_flash(:info, "Account save")
         |> redirect(to: Routes.account_path(conn, :show, account))
       {:error, changeset} ->
-        IO.inspect changeset
         render(conn, "new.html", changeset: changeset)
     end
   end

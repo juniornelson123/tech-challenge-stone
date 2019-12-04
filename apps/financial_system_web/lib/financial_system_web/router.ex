@@ -16,14 +16,17 @@ defmodule FinancialSystemWeb.Router do
   scope "/", FinancialSystemWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", AccountController, :index
     resources "/accounts", AccountController do
       resources "/transfers", TransferController
     end
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", FinancialSystemWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", FinancialSystemWeb.Api, as: :api do
+    pipe_through :api
+
+    resources "/accounts", AccountController, only: [:index]
+    resources "/transfers", AccountController, only: [:create]
+  end
 end
