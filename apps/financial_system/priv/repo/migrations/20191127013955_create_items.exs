@@ -4,6 +4,7 @@ defmodule FinancialSystem.Repo.Migrations.CreateItem do
   def change do
     create table(:items) do
       add :value, :integer
+      add :currency, :string
       add :account_received_id, references(:accounts, on_delete: :delete_all)
       add :transfer_id, references(:transfers, on_delete: :delete_all)
 
