@@ -37,20 +37,23 @@ defmodule FinancialSystem do
       iex> {:ok, account1} = FinancialSystem.Transaction.create_account(%{balance: 200, currency: "BRL", user_id: user1.id})
       iex> {:ok, user2} = FinancialSystem.Transaction.create_user(%{name: "Name client2", email: "email2@email.com", phone: "86984948928"})
       iex> {:ok, account2} = FinancialSystem.Transaction.create_account(%{balance: 200, currency: "BRL", user_id: user2.id})
-      iex> {:ok, %FinancialSystem.Transaction.Transfer{}} = FinancialSystem.transfer(account.id, [%{value: 30, account_received_id: account1.id}, %{value: 40, account_received_id: account2.id}])
-      iex> {:error, %FinancialSystem.Transaction.Transfer{}} = FinancialSystem.transfer(account.id, [%{value: 300, account_received_id: account1.id}, %{value: 40, account_received_id: account2.id}])
+      iex> {:ok, %FinancialSystem.Transaction.Transfer{}} = FinancialSystem.transfer(account.id, [%{value: 30.1, account_received_id: account1.id}, %{value: 40, account_received_id: account2.id}])
+      iex> {:error, %FinancialSystem.Transaction.Transfer{}} = FinancialSystem.transfer(account.id, [%{value: 300.20, account_received_id: account1.id}, %{value: 40, account_received_id: account2.id}])
       iex> ""
       ""
   """
   def transfer(account_from_id, accounts) do
-    value = accounts |> Enum.map(&(&1.value)) |> Enum.reduce(0, &(&1+&2))
+    account = Transaction.get_account!(account_from_id)
+    value = accounts |> Enum.map(&(Money.parse_value(&1.value, account.currency))) |> Enum.reduce(0, &(&1+&2))
     #Register transfer
     case register_transfer(account_from_id, value) do
       {:ok, transfer} ->
+        items = accounts |> Enum.map(fn register ->
+          {:ok, item} = register_item(Money.parse_value(register.value, account.currency), register.account_received_id, transfer.id, account.currency)
+          item
+        end)
         case Repo.transaction(fn ->
-          accounts |> Enum.map(fn account ->
-            {:ok, item} = register_item(account.value, account.account_received_id, transfer.id)
-
+          items |> Enum.map(fn item ->
             transfer_account(account_from_id, item.account_received_id, item)
           end)
 
@@ -81,12 +84,14 @@ defmodule FinancialSystem do
       ""
   """
   def transfer(account_from_id, account_received_id, value) do
+    account = Transaction.get_account!(account_from_id)
     #Register transfer
-    case register_transfer(account_from_id, value) do
+    case register_transfer(account_from_id, Money.parse_value(value, account.currency)) do
       {:ok, transfer} ->
+        {:ok, item} = register_item(transfer.value, account_received_id, transfer.id, account.currency)
+
         case Repo.transaction(fn ->
           #Register item of transfer
-          {:ok, item} = register_item(transfer.value, account_received_id, transfer.id)
 
           transfer_account(account_from_id, account_received_id, item)
 
@@ -130,8 +135,8 @@ defmodule FinancialSystem do
     end
   end
 
-  defp register_item(value, account_received_id, transfer_id) do
-    case Transaction.create_item(%{value: value, account_received_id: account_received_id, transfer_id: transfer_id}) do
+  defp register_item(value, account_received_id, transfer_id, currency) do
+    case Transaction.create_item(%{value: value, currency: currency, account_received_id: account_received_id, transfer_id: transfer_id}) do
       {:ok, item} ->
         {:ok, item}
       {:error, _} ->
