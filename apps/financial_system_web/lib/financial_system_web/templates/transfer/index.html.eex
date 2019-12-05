@@ -4,7 +4,17 @@
   <ul>
     <%= for transfer <- @transfers do %>
       <li><strong>Account Send:</strong> <%= transfer.account.user.name %></li>
-      <li><strong>Value:</strong> <%= transfer.value %></li>
+      <li><strong>Value:</strong> <%= value_currency(transfer.value, transfer.account.currency) %> <%= transfer.account.currency %></li>
+      <li><strong>Status: </strong><%= if transfer.success, do: "Success", else: "Fail" %></li>
+      <li><strong>Reason: </strong><%= transfer.reason %></li>
+      <li>
+        <strong>Account Receiver:</strong>
+        <ul>
+          <%= for item <- transfer.items do %>
+            <li><%= item.account_received.user.name %> - <%= value_currency(item.value, item.currency) %> <%= item.currency %> </li>
+          <% end %>
+        </ul>
+      </li>
       <hr />
     <% end %>
   </ul>

@@ -1,7 +1,6 @@
 defmodule FinancialSystem.Transaction.Account do
   use Ecto.Schema
   import Ecto.Changeset
-  alias FinancialSystem.Money
 
   schema "accounts" do
     field :currency, :string
