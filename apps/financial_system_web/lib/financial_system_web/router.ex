@@ -26,7 +26,8 @@ defmodule FinancialSystemWeb.Router do
   scope "/api", FinancialSystemWeb.Api, as: :api do
     pipe_through :api
 
-    resources "/accounts", AccountController, only: [:index]
-    resources "/transfers", AccountController, only: [:create]
+    resources "/accounts", AccountController, only: [:index] do
+      resources "/transfers", TransferController, only: [:create]
+    end
   end
 end
