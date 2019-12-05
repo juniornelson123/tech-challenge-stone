@@ -47,8 +47,8 @@ defmodule FinancialSystemTest do
     user1 = user_fixture(2)
     account1 = account_fixture(user1.id)
 
-    assert {:error, transfer} = FinancialSystem.transfer(account.id, 0, 300)
-    assert transfer.reason == "Canceled transfer verify info"
+    assert {:error, message} = FinancialSystem.transfer(0, 0, 300)
+    assert message == "Canceled transfer verify info"
   end
 
   test "A transfer can be splitted between 2 or more accounts" do
