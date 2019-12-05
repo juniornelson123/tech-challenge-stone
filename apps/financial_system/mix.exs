@@ -36,7 +36,9 @@ defmodule FinancialSystem.Mixfile do
 
   defp aliases do
     [
-     "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+     "test": ["ecto.create --quiet", "ecto.migrate", "test"],
+     "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+     "seed": ["run priv/repo/seeds.exs"]
     ]
   end
 end
