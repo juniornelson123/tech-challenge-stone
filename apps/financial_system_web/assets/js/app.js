@@ -21,5 +21,5 @@ import ReactDOM from 'react-dom'
 import FormTransfer from './components/FormTransfer'
 
 if (document.getElementById('newTransfer')) {
-  ReactDOM.render(<FormTransfer accountId={document.getElementById('accountId').getAttribute("data-id")}/>, document.getElementById('newTransfer'))
+  ReactDOM.render(<FormTransfer link={document.getElementById('accountId').getAttribute("data-link")} accountId={document.getElementById('accountId').getAttribute("data-id")}/>, document.getElementById('newTransfer'))
 }
