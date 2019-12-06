@@ -20,6 +20,7 @@ defmodule FinancialSystemWeb.Router do
     resources "/accounts", AccountController do
       resources "/transfers", TransferController
     end
+    resources "/exchanges", ExchangeController, only: [:index]
   end
 
   # Other scopes may use custom stacks.
@@ -29,5 +30,6 @@ defmodule FinancialSystemWeb.Router do
     resources "/accounts", AccountController, only: [:index] do
       resources "/transfers", TransferController, only: [:create]
     end
+    resources "/exchanges", ExchangeController, only: [:create]
   end
 end

@@ -19,7 +19,11 @@ import "phoenix_html"
 import React from 'react'
 import ReactDOM from 'react-dom'
 import FormTransfer from './components/FormTransfer'
+import FormExchange from './components/FormExchange'
 
 if (document.getElementById('newTransfer')) {
   ReactDOM.render(<FormTransfer link={document.getElementById('accountId').getAttribute("data-link")} accountId={document.getElementById('accountId').getAttribute("data-id")}/>, document.getElementById('newTransfer'))
+}
+if (document.getElementById('exchangeDiv')) {
+  ReactDOM.render(<FormExchange currencies={document.getElementById('exchangeDiv').getAttribute("data-coins")} />, document.getElementById('exchangeDiv'))
 }

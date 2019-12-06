@@ -13,7 +13,7 @@
         <nav role="navigation">
           <ul>
             <li><%= link "Accounts", to: Routes.account_path(@conn, :index) %></li>
-            <li><a href="">Convert</a></li>
+            <li><%= link "Exchange", to: Routes.exchange_path(@conn, :index) %></li>
           </ul>
         </nav>
         <span>FinancialSystem</span>

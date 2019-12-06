@@ -1,0 +1,3 @@
+<h1>Exchange</h1>
+
+<div id="exchangeDiv" data-coins="<%= list_coins %>"></div>
