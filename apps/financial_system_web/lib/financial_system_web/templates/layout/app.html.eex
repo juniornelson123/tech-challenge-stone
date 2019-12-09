@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IT=edge,chrome=IE8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
     <title>FinancialSystem · Tech Challenge</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><%= link "Accounts", to: Routes.account_path(@conn, :index) %></li>
-            <li><%= link "Exchange", to: Routes.exchange_path(@conn, :index) %></li>
+    <header class="w-full bg-green-300 shadow px-8 py-4">
+      <section class="flex">
+        <span class="text-white text-xl">FinancialSystem</span>
+        <nav role="navigation" class="flex justify-end w-full sm:invisible md:visible lg:invisible xl:visible">
+          <ul class="flex">
+            <li><%= link "Accounts", to: Routes.account_path(@conn, :index), class: "mr-4 text-white" %></li>
+            <li><%= link "Exchange", to: Routes.exchange_path(@conn, :index), class: "text-white" %></li>
           </ul>
         </nav>
-        <span>FinancialSystem</span>
       </section>
     </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <main role="main" class="container mx-auto mt-8">
+      <p class="bg-green-500 rounded text-white shadow" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="bg-red-500 rounded text-white shadow" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= render @view_module, @view_template, assigns %>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>

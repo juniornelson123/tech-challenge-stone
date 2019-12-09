@@ -1,21 +1,21 @@
-<%= link "Back", to: Routes.account_path(@conn, :index) %>
-<%= link "New", to: Routes.account_transfer_path(@conn, :new, @account) %>
-<section class="row">
-  <ul>
-    <%= for transfer <- @transfers do %>
-      <li><strong>Account Send:</strong> <%= transfer.account.user.name %></li>
-      <li><strong>Value:</strong> <%= value_currency(transfer.value, transfer.account.currency) %> <%= transfer.account.currency %></li>
-      <li><strong>Status: </strong><%= if transfer.success, do: "Success", else: "Fail" %></li>
-      <li><strong>Reason: </strong><%= transfer.reason %></li>
-      <li>
-        <strong>Account Receiver:</strong>
-        <ul>
-          <%= for item <- transfer.items do %>
-            <li><%= item.account_received.user.name %> - <%= value_currency(item.value, item.currency) %> <%= item.currency %> </li>
-          <% end %>
-        </ul>
-      </li>
-      <hr />
-    <% end %>
-  </ul>
-</section>
+<div class="flex">
+  <div class="">
+    <%= link "Back", to: Routes.account_path(@conn, :index), class: "bg-red-500 rounded text-white shadow p-2 mr-2 w-1/12 text-center" %>
+  </div>
+  <div class="flex justify-end w-full">
+    <%= link "New", to: Routes.account_transfer_path(@conn, :new, @account), class: "bg-blue-500 rounded text-white shadow p-2 mr-2 w-1/12 text-center" %>
+  </div>
+</div>
+<div class="flex">
+  <%= for transfer <- @transfers do %>
+    <div class="flex flex-col shadow p-4 w-2/12  m-2">
+      <span><%= transfer.account.user.name %></span>
+      <span><%= value_currency(transfer.value, transfer.account.currency) %> <%= transfer.account.currency %></span>
+      <span><%= if transfer.success, do: "Success", else: "Fail" %></span>
+      <span><%= transfer.reason %></span>
+      <%= for item <- transfer.items do %>
+        <span><%= item.account_received.user.name %> - <%= value_currency(item.value, item.currency) %> <%= item.currency %> </span>
+      <% end %>
+    </div>
+  <% end %>
+</div>

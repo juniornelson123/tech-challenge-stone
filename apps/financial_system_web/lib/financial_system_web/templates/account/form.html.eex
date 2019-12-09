@@ -5,29 +5,37 @@
     </div>
   <% end %>
 
-  <%= inputs_for f, :user, fn ff -> %>
-    <%= label ff, :name %>
-    <%= text_input ff, :name %>
-    <%= error_tag ff, :name %>
-
-    <%= label ff, :email %>
-    <%= text_input ff, :email %>
-    <%= error_tag ff, :email %>
-    
-    <%= label ff, :phone %>
-    <%= text_input ff, :phone %>
-    <%= error_tag ff, :phone %>
-  <% end %>
-
-  <%= label f, :balance %>
-  <%= text_input f, :balance, value: value_currency(f.data.balance, f.data.currency) %>
-  <%= error_tag f, :balance %>
-  
-  <%= label f, :currency %>
-  <%= select f, :currency, list_coins %>
-  <%= error_tag f, :currency %>
-  <div>
-    <%= link "Cancel", to: Routes.account_path(@conn, :index) %>
-    <%= submit "Save" %>
+  <div class="flex flex-col">
+    <%= inputs_for f, :user, fn ff -> %>
+      <div class="mt-6">
+        <%= label ff, :name, class: "text-gray-600", class: "text-gray-600" %>
+        <%= text_input ff, :name, class: "bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+        <%= error_tag ff, :name %>
+      </div>
+      <div class="mt-6">
+        <%= label ff, :email, class: "text-gray-600" %>
+        <%= text_input ff, :email, class: "bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+        <%= error_tag ff, :email %>
+      </div>
+      <div class="mt-6">
+        <%= label ff, :phone, class: "text-gray-600" %>
+        <%= text_input ff, :phone, class: "bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+        <%= error_tag ff, :phone %>
+      </div>  
+    <% end %>
+    <div class="mt-6">
+      <%= label f, :balance, class: "text-gray-600" %>
+      <%= text_input f, :balance, value: value_currency(f.data.balance, f.data.currency), class: "bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+      <%= error_tag f, :balance %>
+    </div>
+    <div class="mt-6">
+      <%= label f, :currency, class: "text-gray-600" %>
+      <%= select f, :currency, list_coins, class: "bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+      <%= error_tag f, :currency %>
+    </div>  
+  </div>  
+  <div class="mt-6 flex">
+    <%= link "Cancel", to: Routes.account_path(@conn, :index), class: "bg-red-500 rounded text-white shadow p-2 w-1/12 text-center mr-4" %>
+    <%= submit "Save", class: "bg-blue-500 w-1/12 text-center rounded text-white shadow p-2" %>
   </div>
 <% end %>

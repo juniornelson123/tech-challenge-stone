@@ -1,13 +1,30 @@
-<%= link "New", to: Routes.account_path(@conn, :new) %>
-<section class="row">
-  <ul>
+<div class="flex">
+  <div class="">
+    <span class="text-2xl">Accounts</span>
+  </div>
+  <div class="flex justify-end w-full">
+    <%= link "New", to: Routes.account_path(@conn, :new), class: "bg-blue-500 rounded text-white shadow p-2 mr-2 w-1/12 text-center" %>
+  </div>
+</div>
+<table class="text-center table-auto w-full mt-8">
+  <thead>
+    <tr>
+      <th class="px-4 py-2 border">Owner</th>
+      <th class="px-4 py-2 border">Balance</th>
+      <th class="px-4 py-2 border">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
     <%= for account <- @accounts do %>
-      <li><strong>Owner:</strong> <%= link account.user.name, to: Routes.account_path(@conn, :show, account.id) %></li>
-      <li><strong>Balance:</strong> <%= value_currency(account.balance, account.currency) %> - <%= account.currency %></li>
-      <li><%= link "Transfers", to: Routes.account_transfer_path(@conn, :index, account) %></li>
-      <li><%= link "Edit", to: Routes.account_path(@conn, :edit, account) %></li>
-      <li><%= link "Delete", to: Routes.account_path(@conn, :delete, account), method: :delete %></li>
-      <hr />
-    <% end %>
-  </ul>
-</section>
+      <tr class="align-middle" >
+        <td class="border px-4 py-2 align-middle"><%= link account.user.name, to: Routes.account_path(@conn, :show, account.id) %></td>
+    <td class="border px-4 py-2"><%= value_currency(account.balance, account.currency) %> - <%= account.currency %></td>
+        <td class="border px-4 py-2">
+          <%= link "Transfers", to: Routes.account_transfer_path(@conn, :index, account), class: "bg-green-500 rounded text-white shadow p-2 mr-2" %>
+          <%= link "Edit", to: Routes.account_path(@conn, :edit, account), class: "bg-yellow-500 rounded text-white shadow p-2 mr-2" %>
+          <%= link "Delete", to: Routes.account_path(@conn, :delete, account), method: :delete, class: "bg-red-500 rounded text-white shadow p-2 " %>
+        </td>
+      </tr>
+    <% end %>  
+  </tbody>
+</table>
