@@ -1,3 +1,2 @@
-<%= link "Back", to: Routes.account_transfer_path(@conn, :index, @account) %>
 <div id="accountId" data-link="<%= Routes.account_transfer_path(@conn, :index, @account)%>" data-id="<%= @account.id%>"></div>
 <div id="newTransfer"></div>

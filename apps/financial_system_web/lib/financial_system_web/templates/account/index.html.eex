@@ -10,6 +10,8 @@
   <thead>
     <tr>
       <th class="px-4 py-2 border">Owner</th>
+      <th class="px-4 py-2 border">Phone</th>
+      <th class="px-4 py-2 border">Email</th>
       <th class="px-4 py-2 border">Balance</th>
       <th class="px-4 py-2 border">Actions</th>
     </tr>
@@ -18,7 +20,9 @@
     <%= for account <- @accounts do %>
       <tr class="align-middle" >
         <td class="border px-4 py-2 align-middle"><%= link account.user.name, to: Routes.account_path(@conn, :show, account.id) %></td>
-    <td class="border px-4 py-2"><%= value_currency(account.balance, account.currency) %> - <%= account.currency %></td>
+        <td class="border px-4 py-2"><%= account.user.phone %></td>
+        <td class="border px-4 py-2"><%= account.user.email %></td>
+        <td class="border px-4 py-2"><%= value_currency(account.balance, account.currency) %> - <%= account.currency %></td>
         <td class="border px-4 py-2">
           <%= link "Transfers", to: Routes.account_transfer_path(@conn, :index, account), class: "bg-green-500 rounded text-white shadow p-2 mr-2" %>
           <%= link "Edit", to: Routes.account_path(@conn, :edit, account), class: "bg-yellow-500 rounded text-white shadow p-2 mr-2" %>

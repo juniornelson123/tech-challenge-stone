@@ -21,7 +21,7 @@ defmodule FinancialSystemWeb.AccountController do
       {:ok, account} ->
         conn
         |> put_flash(:info, "Account save")
-        |> redirect(to: Routes.account_path(conn, :show, account))
+        |> redirect(to: Routes.account_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -45,7 +45,7 @@ defmodule FinancialSystemWeb.AccountController do
       {:ok, account} ->
         conn
         |> put_flash(:info, "Account save")
-        |> redirect(to: Routes.account_path(conn, :show, account))
+        |> redirect(to: Routes.account_path(conn, :index))
       {:error, changeset} ->
         render(conn, "edit.html", account: account, changeset: changeset)
     end
