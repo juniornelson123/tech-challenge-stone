@@ -11,31 +11,77 @@ Repositorio para apresentar solução ao teste proposta pelo # **[tech-challenge
 
 A plataforma foi desenvolvida utilizando Elixir + Phoenix Framework, além da biblioteca javascript React para criação de componentes dinâmicos. Tem como principal objetivo a criação de "contas" para usuários e operações de transferências e conversão de moedas.
 
-### [](https://github.com/stone-payments/stoneco-best-practices/blob/master/readme/README_pt.md#depend%C3%AAncias)Dependências
+## [](https://github.com/stone-payments/stoneco-best-practices/blob/master/readme/README_pt.md#depend%C3%AAncias)Dependências
 
+	Elixir >= 1.6.4
+	Phoenix Framework >= 1.4
+	PostgreSQL >= 9.0
+
+	Instalação Elixir: https://elixir-lang.org/install.html
+	Instalação Phoenix Framework: https://hexdocs.pm/phoenix/installation.html
+	
 -   [EctoSql](https://github.com/elixir-ecto/ecto_sql)  - SQL-based adapters for Ecto and database migrations.
--   [Postgrex](https://github.com/parroty/excoveralls)  - Reports test coverage statistics, showing wich lines of code are actually being tested.
--   [Httpotion](https://github.com/elixirmoney/moneyk)  - To help us deal with money in diferent currencies.
--   [Poison](https://github.com/elixir-lang/ex_doc)  - Produces HTML documentation.
+-   [Postgrex](https://github.com/elixir-ecto/postgrex)  - PostgreSQL driver for Elixir.
+-   [Httpotion](https://github.com/myfreeweb/httpotion)  - HTTP client for Elixir.
+-   [Poison](https://github.com/devinus/poison)  - An incredibly fast, pure Elixir JSON library.
 -   [Phoenix](https://github.com/phoenixframework/phoenix)  - A productive web framework that does not compromise speed or maintainability.
+-   [React](https://github.com/facebook/react) - A declarative, efficient, and flexible JavaScript library for building user interfaces.
+-   [Tailwindcss](https://github.com/tailwindcss/tailwindcss)  - A utility-first CSS framework for rapid UI development.
 
--   [React](https://github.com/phoenixframework/phoenix)  - A productive web framework that does not compromise speed or maintainability.
--   [Tailwindcss](https://github.com/phoenixframework/phoenix)  - A productive web framework that does not compromise speed or maintainability.
+## [](https://github.com/stone-payments/stoneco-best-practices/blob/master/readme/README_pt.md#como-come%C3%A7ar)Como Começar
 
-### [](https://github.com/stone-payments/stoneco-best-practices/blob/master/readme/README_pt.md#como-come%C3%A7ar)Como Começar
+### Atualizar Dependências
 
-Guia para executar sua aplicação. O propósito todo de tornar uma aplicação pública é permitir que outros usuários executem sua aplicação nas suas próprias máquinas. Esse tópico somado ao anterior DEVEM permitir que eles consigam fazer isso, se isso não acontecer significa que você falhou em atrair contributors e usuários.
+```
+mix deps.get
+cd apps/financial_system_web/assets/assets && yarn && node node_modules/webpack/bin/webpack.js --mode development && cd ../../..
+```
 
+### Banco de dados
+
+Alterar configurações de banco no arquivo /config/dev.exs:
+
+```
+ config :app, APP.Repo,
+	username:  "user",
+	password:  "password",
+	database:  "app_dev",
+	hostname:  "localhost",
+	pool_size:  10
+```
+### Criar Banco de Dados
+
+```
+mix ecto.create
+
+```
+### Migrações Banco de Dados
+
+```
+mix ecto.migrate
+
+```
+
+### Semear Banco de Dados
+
+```
+cd apps/financial_system_web && mix run priv/repo/seeds.exs && cd ../..
+```
+
+### Iniciar Servidor
+
+```
+mix phx.server
+```
 ### [](https://github.com/stone-payments/stoneco-best-practices/blob/master/readme/README_pt.md#lan%C3%A7amentos-principais)Lançamentos Principais
 
-Lista de lançamentos principais já realizados e também o que está planejado para os próximos. Isso permite ao usuário/contributor entender de onde partiu sua aplicação e também entender seu propósito final.
+- Cadastro e gerenciamento de Contas
+- Transferências entre contas
+- Conversor de moedas
 
-### [](https://github.com/stone-payments/stoneco-best-practices/blob/master/readme/README_pt.md#status-do-c%C3%B3digo)Status do Código
+## License
 
-### [](https://github.com/stone-payments/stoneco-best-practices/blob/master/readme/README_pt.md#licen%C3%A7a)Licença
+[![License](https://camo.githubusercontent.com/107590fac8cbd65071396bb4d04040f76cde5bde/687474703a2f2f696d672e736869656c64732e696f2f3a6c6963656e73652d6d69742d626c75652e7376673f7374796c653d666c61742d737175617265)](http://badges.mit-license.org/)
 
-A licença que está relacionada a qualquer código no seu repositório. Isso é essencial e orbigatório. Tome cuidado ao escolher sua licença. Além disso, é uma boa prática fazer referência à sua licença em todo arquivo de código no seu repositório.
-
-### [](https://github.com/stone-payments/stoneco-best-practices/blob/master/readme/README_pt.md#cr%C3%A9ditos)Créditos
-
-Quem fez o quê. As pessoas  **_amam_**  ser reconhecidas por seu trabalho! Não se esqueça de incluir todo mundo!
+-   **[MIT license](http://opensource.org/licenses/mit-license.php)**
+-   Copyright 2019 ©  [Nelson junior](http://github.com/juniornelson123).
