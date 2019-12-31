@@ -34,7 +34,7 @@ A plataforma foi desenvolvida utilizando Elixir + Phoenix Framework, além da bi
 
 ```
 mix deps.get
-cd apps/financial_system_web/assets/assets && yarn && node node_modules/webpack/bin/webpack.js --mode development && cd ../../..
+cd apps/financial_system_web/assets && yarn && node node_modules/webpack/bin/webpack.js --mode development && cd ../../..
 ```
 
 ### Banco de dados
