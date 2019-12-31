@@ -65,7 +65,7 @@ mix ecto.migrate
 ### Semear Banco de Dados
 
 ```
-cd apps/financial_system_web && mix run priv/repo/seeds.exs && cd ../..
+cd apps/financial_system && mix deps.get && mix run priv/repo/seeds.exs && cd ../..
 ```
 
 ### Iniciar Servidor
